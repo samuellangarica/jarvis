@@ -12,19 +12,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SchedulerService = void 0;
 const common_1 = require("@nestjs/common");
 const schedule_1 = require("@nestjs/schedule");
+const todoist_service_1 = require("../integrations/todoist/todoist.service");
 let SchedulerService = class SchedulerService {
-    handleInterval() {
-        console.log('Task running every 1 second');
+    constructor(todoistService) {
+        this.todoistService = todoistService;
+    }
+    async handleTaskCreation() {
+        await this.todoistService.addTask('Automated task every minute');
     }
 };
 exports.SchedulerService = SchedulerService;
 __decorate([
-    (0, schedule_1.Interval)(1000),
+    (0, schedule_1.Interval)(10000),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], SchedulerService.prototype, "handleInterval", null);
+    __metadata("design:returntype", Promise)
+], SchedulerService.prototype, "handleTaskCreation", null);
 exports.SchedulerService = SchedulerService = __decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [todoist_service_1.TodoistService])
 ], SchedulerService);
 //# sourceMappingURL=scheduler.service.js.map

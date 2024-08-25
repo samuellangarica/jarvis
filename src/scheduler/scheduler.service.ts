@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { Cron, CronExpression, Interval } from '@nestjs/schedule';
+import { Interval } from '@nestjs/schedule';
+import { TodoistService } from 'src/integrations/todoist/todoist.service';
 
 @Injectable()
 export class SchedulerService {
-  // This job will run every 10 seconds
-  @Interval(2000)
-  handleInterval() {
-    console.log('Task running every 2 second');
+  constructor(private readonly todoistService: TodoistService) {}
+
+  @Interval(10000) 
+  async handleTaskCreation() {
+    await this.todoistService.addTask('Automated task every minute');
   }
 }

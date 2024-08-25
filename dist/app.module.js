@@ -10,12 +10,13 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const schedule_1 = require("@nestjs/schedule");
 const scheduler_service_1 = require("./scheduler/scheduler.service");
+const todoist_module_1 = require("./integrations/todoist/todoist.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [schedule_1.ScheduleModule.forRoot()],
+        imports: [schedule_1.ScheduleModule.forRoot(), todoist_module_1.TodoistModule],
         providers: [scheduler_service_1.SchedulerService],
     })
 ], AppModule);
